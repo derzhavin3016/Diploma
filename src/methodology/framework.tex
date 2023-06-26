@@ -1,0 +1,57 @@
+\begin{tikzpicture} [
+    scale=1,
+    -Latex,auto,node distance =1 cm and .4 cm, thick,% node distance is the distance between one node to other, where 1.5cm is the length of the edge between the nodes
+  ]
+  % simulators
+
+  \node[state, fill=Apricot] (s1) {Симулятор 1};
+  \node[state, fill=Apricot] (s2) [below=.4cm of s1] {Симулятор 2};
+  \node[state, fill=Apricot] (s3) [below=of s2] {Симулятор n};
+
+  % interface
+  \node[state] (int) [right=of s2, fill=LimeGreen] {Обобщённый \\интерфейс};
+
+  \draw[->] (s1) -- (int);
+  \draw[->] (s2) -- (int);
+  \draw[->] (s3) -- (int);
+
+  \path (s2) -- node[auto=false]{\ldots} (s3);
+
+
+  \node[state] (dse) [right=of int, fill=LimeGreen] {Алгоритм \\подбора};
+  \draw[->] (int) -- (dse);
+
+  \node[state] (req) [above=of int, fill=cyan!50] {Запрос \\изменений};
+  \draw[->] (dse) -- (req);
+  \draw[->] (req) -- (int);
+
+  \node[state] (change) [below=of int, fill=cyan!50] {Изменение \\параметров};
+
+  \draw[->, thick, dashed, in=90] (s2.west) -- (s1.west);
+  \draw[->, thick, dashed] (s3.west) -- (s2.west);
+  \draw[->, thick, dashed] (change) -| (s3.west);
+
+  \draw[->] (int) -- (change);
+
+  \node[state] (traces) [below=of dse, fill=NavyBlue!60] {Трассы \\исполнения};
+  \draw[->] (traces) -- (dse);
+
+  \node[state] (stat) [above=of dse, fill=lime!50] {Статистика};
+  \draw[->] (stat) -- (dse);
+
+  % cluster
+  \node[state, fill=NavyBlue!60] (t3) [right=.7cm of dse] {Трасса 3};
+  \node[state, fill=NavyBlue!60] (t2) [above=.1cm of t3]  {Трасса 2};
+  \node[state, fill=NavyBlue!60] (t4) [below=1.3cm of t3]  {Трасса M};
+  \node[state, fill=NavyBlue!60] (t1) [above=.1cm of t2]  {Трасса 1};
+
+  \path (t3) -- node[auto=false]{\ldots} (t4);
+
+  \begin{scope}[on background layer]
+    \node[draw, thick, fit=(t1)(t2)(t3)(t4), fill=Apricot] (cluster) [right=of dse] {};
+  \end{scope}
+  \draw[->, bend right] ([xshift=-1.1cm]cluster.north) to (stat.north);
+  \node at (cluster.north) [above=.1cm of t1] {Кластер};
+
+  \draw[->] (dse) -- (t3-|cluster.west);
+\end{tikzpicture}

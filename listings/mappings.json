@@ -1,0 +1,43 @@
+{
+  "statistics->parameters": {
+    "sim.StatisticValue": {
+      "parameter1": {
+        "values": [
+          "first",
+          "second",
+          "third"
+        ]
+      },
+      "parameter2": {
+        "values": [
+          1,
+          2,
+          3
+        ]
+      }
+      // Остальные параметры
+    },
+    "sim.AnotherStatisticValue": {
+      "parameter3": {
+        "values": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ]
+      }
+    }
+    // Остальные статистические данные
+  },
+  "statistics->generalized": {
+    "sim.StatisticValue": "Generalized.StatisticValue",
+    "sim.AnotherStatisticValue": "Generalized.AnotherStatisticValue"
+    // Соотношения названий остальных статистик
+  }
+}

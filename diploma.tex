@@ -1,0 +1,70 @@
+\documentclass{mipt-thesis-bs}
+% Следующие две строки нужны только для biblatex. Для inline-библиографии их следует убрать.
+\usepackage{mipt-thesis-biblatex}
+\usepackage[usenames,dvipsnames]{xcolor} % package crucial to implement colors
+\usepackage[outputdir=build]{minted}
+
+\usepackage{tikz} % package used for the tikz
+% the settings of tikz is used for the optimization of the graphs
+\usetikzlibrary{shapes, arrows, calc, arrows.meta, fit, positioning, backgrounds, decorations.pathreplacing} % these are the parameters passed to the library to create the node graphs
+\tikzset{
+    state/.style ={ellipse, draw, minimum width = 0.9 cm, align=center}, % the minimum width is the width of the ellipse, which is the size of the shape of vertex in the node graph
+    point/.style = {circle, draw, inner sep=0.18cm, fill, node contents={}},
+    bidirected/.style={Latex-Latex,dashed}, % it is the edge having two directions
+    el/.style = {inner sep=2.5pt, align=right, sloped}
+}
+
+\renewcommand{\listingscaption}{Листинг}
+\usepackage[obeyFinal]{todonotes} % to remove TODOs, add [disable]
+
+\input{math/math}
+\newcommand{\itd}[1]{\todo[inline]{#1}}
+
+\graphicspath{{pics/}}
+
+\addbibresource{bib/sources.bib}
+
+\title{Улучшение метода подбора оптимальной конфигурации микроархитектуры процессора с параметрами низкого порядка}
+\author{Державин A.\,A.}
+\supervisor{Петушков И.\,В.}
+\consultant{Лось Д.\,А.}
+\groupnum{Б01--909а}
+\faculty{Физтех-школа радиотехники и компьютерных технологий}
+\department{Кафедра микропроцессорных технологий в интеллектуальных системах управления}
+\abstract{\input{src/abstract}}
+
+\begin{document}
+
+\frontmatter
+\titlecontents{}
+\mainmatter{}
+
+
+\chapter{Введение}
+
+\input{src/intro}
+
+\chapter{Обзор литературы}
+
+\input{src/lit_overview/overview}
+
+\chapter{Методология}
+
+\input{src/methodology/methodology}
+
+\chapter{Результаты}
+
+\input{src/results/results}
+
+\chapter{Заключение}
+
+\input{src/conclusion/conclusion}
+
+
+\backmatter{}
+\printbib{}
+
+% \chapter{Благодарности}
+% Благодарности идут тут.
+
+\end{document}

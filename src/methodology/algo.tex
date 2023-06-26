@@ -1,0 +1,77 @@
+\begin{tikzpicture} [
+    scale=1,
+    -Latex,auto,node distance =1 cm and .4 cm, thick,% node distance is the distance between one node to other, where 1.5cm is the length of the edge between the nodes
+  ]
+  % values
+
+  \node[state, fill=Cyan] (v1) {Значения};
+  \node[state, fill=Cyan] (v2) [below of=v1] {Значения};
+  \node[state, fill=Cyan] (v3) [below of=v2] {Значения};
+  \node[state, fill=Cyan] (v4) [below of=v3] {Значения};
+  \node[state, fill=Cyan] (v5) [below of=v4] {Значения};
+  \node[state, fill=Cyan] (v6) [below=.7cm of v5] {Значения};
+  \node[state, fill=Cyan] (v7) [below=.7cm of v6] {Значения};
+
+  % params
+
+  \node[state, fill=Apricot] (p1) [right = of v1] {Параметр 1};
+  \node[state, fill=Apricot] (p2) [right = of v2] {Параметр 2};
+  \node[state, fill=Apricot] (p3) [right = of v3] {Параметр 3};
+  \node[state, fill=Apricot] (p4) [right = of v4] {Параметр 4};
+  \node[state, fill=Apricot] (p5) [right = of v5] {Параметр 5};
+  \node[state, fill=Apricot] (p6) [right = of v6] {Параметр k};
+  \node[state, fill=Apricot] (p7) [right = of v7] {Параметр n};
+
+  \path (p5) -- node[auto=false]{\ldots} (p6);
+  \path (p6) -- node[auto=false]{\ldots} (p7);
+
+  % params -> values
+  \draw[->] (p1) -- (v1);
+  \draw[->] (p2) -- (v2);
+  \draw[->] (p3) -- (v3);
+  \draw[->] (p4) -- (v4);
+  \draw[->] (p5) -- (v5);
+  \draw[->] (p6) -- (v6);
+  \draw[->] (p7) -- (v7);
+
+  % stat vals
+
+  \node[state, rectangle, fill=LimeGreen] (s2) [right = of p4] {Статистическое \\значение 2};
+  \node[state, rectangle, fill=LimeGreen] (s1) [right = of p1, above =0cm of s2] {Статистическое \\значение 1};
+  \node[state, rectangle, text=white] (sdots) [below=0cm of s2] {Статистическое \\значение 3};
+  \node[state, rectangle, fill=LimeGreen] (s3) [right = of p6, below =0cm of sdots] {Статистическое \\значение M};
+
+  \path (s2) -- node[auto=false]{\ldots} (s3);
+  \draw [-,OrangeRed,decorate,thick,decoration={brace,amplitude=15pt, mirror},yshift=5cm,xshift=0pt]
+  (s3.south west) -- (s3.south east) node [black,midway,yshift=-1cm]{\footnotesize Вектор статистик};
+
+
+  % s to p
+
+  \draw[->, bend right] (s1.north) to (p1.east);
+  \draw[->] (s1.north) -- (p2.east);
+
+  \draw[->, bend right] (s2.west) to (p3.east);
+  \draw[->] (s2.west) -- (p4.east);
+  \draw[->, bend left] (s2.west) to (p5.east);
+
+  \draw[->] (s3.west) -- (p6.east);
+  \draw[->] (s3.west) -- (p7.east);
+
+  % big nodes
+
+  \node[state, fill=NavyBlue!60] (choice) [right = of s2] {Выбор наиболее \\отклонившегося \\значения};
+
+  \node[state, fill=cyan!60] (thres) [below = of choice] {Пороговые \\значения};
+
+  \draw[->] (thres) -- (choice);
+
+  \draw[->] (s1.east) -- (choice);
+  \draw[->] (s2.east) -- (choice.west);
+  \draw[->] (s3.east) -- (choice);
+
+  \node[state, fill=lime!50] (fin) [above = of choice] {Изменение зависимых \\параметров выбранного \\значения
+  };
+
+  \draw[->] (choice) -- (fin);
+\end{tikzpicture}
